@@ -11,7 +11,7 @@ public class Sardine : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, force));
-        Destroy(this.gameObject, 5.0f);
+        Destroy(this.gameObject, 3.0f);
     }
 
     // Update is called once per frame
