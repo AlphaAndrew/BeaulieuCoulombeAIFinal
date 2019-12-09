@@ -11,7 +11,7 @@ public class MoveToMouse : MonoBehaviour
     private NavMeshAgent agent;
     private Rigidbody rigidbody;
     private Vector3 velocity;
-
+    public float remdistance;
     public float moveSpeed;
 
     void Start()
@@ -23,7 +23,7 @@ public class MoveToMouse : MonoBehaviour
 
     void Update()
     {
-         if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
          {
              RaycastHit hit;
 
@@ -33,9 +33,14 @@ public class MoveToMouse : MonoBehaviour
 
                 if (agent.pathPending)
                 {
+                    
                     if(agent.remainingDistance > 50.0f)
                     {
                         agent.isStopped = true;
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
                     }
                 }
              }
