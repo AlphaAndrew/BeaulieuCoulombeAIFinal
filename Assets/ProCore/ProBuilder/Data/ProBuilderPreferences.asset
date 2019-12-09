@@ -18,20 +18,20 @@ MonoBehaviour:
   - pbDefaultSelectionMode
   - pb_GIWorkflowMode
   - pbHandleAlignment
-  - pbExtrudeMethod
+  - pbEdgeSubdivisions
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
-  - pbExtrudeDistance
+  - pbBevelAmount
   m_String_keys: []
   m_Color_keys: []
   m_Material_keys: []
   m_Bool_values: 
-  m_Int_values: 0100000002000000010000000000000002000000
+  m_Int_values: 0100000002000000010000000000000003000000
   m_Float_values:
   - 0
-  - 27
-  - 0.5
+  - 0
+  - 0.64191616
   m_String_values: []
   m_Color_values: []
   m_Material_values: []
