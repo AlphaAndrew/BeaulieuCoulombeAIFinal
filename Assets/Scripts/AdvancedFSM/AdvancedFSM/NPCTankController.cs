@@ -8,7 +8,7 @@ public class NPCTankController : AdvancedFSM
 {
     public float health;
 
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     public bool isDead = false;
     // We overwrite the deprecated built-in `rigidbody` variable.
     new public Rigidbody rigidbody;
