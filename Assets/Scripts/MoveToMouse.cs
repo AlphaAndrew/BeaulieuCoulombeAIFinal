@@ -30,14 +30,6 @@ public class MoveToMouse : MonoBehaviour
              if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
              {
                 agent.destination = hit.point;
-
-                if (agent.pathPending)
-                {
-                    if(agent.remainingDistance > 50.0f)
-                    {
-                        agent.isStopped = true;
-                    }
-                }
              }
          }
         //Vector3 mousePos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.y));
