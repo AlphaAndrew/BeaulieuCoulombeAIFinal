@@ -33,11 +33,14 @@ public class NPCTankController : AdvancedFSM
 
     public Quaternion targetRotation;
 
+    public GameObject targetSardine;
+
     public int chaseProb = 80;
     public enum AggroType
     {
         LineOfSight,
         Sound,
+        Investigate,
         None
     }
     public AggroType aggroType;
@@ -122,25 +125,15 @@ public class NPCTankController : AdvancedFSM
         }
         //Add transitions
         PatrolState patrol = new PatrolState(waypoints);
-        patrol.AddTransition(Transition.SawPlayer, FSMStateID.Chasing);
+        
         patrol.AddTransition(Transition.NoHealth, FSMStateID.Dead);
-        patrol.AddTransition(Transition.HeardSomething, FSMStateID.Investigating);
+        patrol.AddTransition(Transition.SmelledSardine, FSMStateID.Investigating);
 
-        ChaseState chase = new ChaseState(waypoints);
-        chase.AddTransition(Transition.LostPlayer, FSMStateID.Patrolling);
-        chase.AddTransition(Transition.ReachPlayer, FSMStateID.Attacking);
-        chase.AddTransition(Transition.NoHealth, FSMStateID.Dead);
-
-        AttackState attack = new AttackState(waypoints);
-        attack.AddTransition(Transition.LostPlayer, FSMStateID.Patrolling);
-        attack.AddTransition(Transition.SawPlayer, FSMStateID.Chasing);
-        attack.AddTransition(Transition.NoHealth, FSMStateID.Dead);
 
         InvestigateState investigate = new InvestigateState(waypoints);
-        investigate.AddTransition(Transition.SawPlayer, FSMStateID.Chasing);
         investigate.AddTransition(Transition.LostPlayer, FSMStateID.Patrolling);
         investigate.AddTransition(Transition.NoHealth, FSMStateID.Dead);
-        
+
 
         DeadState dead = new DeadState();
         dead.AddTransition(Transition.NoHealth, FSMStateID.Dead);
@@ -149,8 +142,6 @@ public class NPCTankController : AdvancedFSM
 
         //Add states to the fsmstates list
         AddFSMState(patrol);
-        AddFSMState(chase);
-        AddFSMState(attack);
         AddFSMState(dead);
         AddFSMState(investigate);
     }
