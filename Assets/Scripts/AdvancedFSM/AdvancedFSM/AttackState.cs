@@ -41,8 +41,7 @@ public class AttackState : FSMState
     {       
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
 
-        //Change color
-        npcScript.gameObject.GetComponent<Renderer>().material.color = Color.red;
+       
       
         //Set the target position as the player position
         destPos = player.position;

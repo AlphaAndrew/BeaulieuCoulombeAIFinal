@@ -35,30 +35,30 @@ public class ChaseState : FSMState
             if (npcScript.aggroType.ToString() == "LineOfSight")
             {
 
-                  RaycastHit hit;
-                 npcScript.rayDirection = player.position - npc.position;
-                if ((Vector3.Angle(npcScript.rayDirection, npc.forward)) < npcScript.FieldOfView)
-                {
-                    // Detect if player is within the field of view
-                    if (Physics.Raycast(npc.position, npcScript.rayDirection, out hit, npcScript.ViewDistance))
-                    {
-                        if (hit.collider.tag == "Wall")
-                        {
-                            Debug.Log("EnemyLost");
-                            GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isSeen = false;
+                // RaycastHit hit;
+                // npcScript.rayDirection = player.position - npc.position;
+                //if ((Vector3.Angle(npcScript.rayDirection, npc.forward)) < npcScript.FieldOfView)
+                //{
+                //    // Detect if player is within the field of view
+                //    if (Physics.Raycast(npc.position, npcScript.rayDirection, out hit, npcScript.ViewDistance))
+                //    {
+                //        if (hit.collider.tag == "Wall")
+                //        {
+                //            Debug.Log("EnemyLost");
+                //            GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isSeen = false;
 
-                            npcScript.SetTransition(Transition.LostPlayer);
-                        }
-                          //Go back to patrol if it has become too far
-                        if (dist >= 1000.0f)
-                        {
-                            //recently active, so we set time to bored back to 0
-                            npc.GetComponent<NPCTankController>().SetTransition(Transition.LostPlayer);
-                            GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isSeen = false;
-                        }
-                    }
+                //            npcScript.SetTransition(Transition.LostPlayer);
+                //        }
+                //          //Go back to patrol if it has become too far
+                //        if (dist >= 1000.0f)
+                //        {
+                //            //recently active, so we set time to bored back to 0
+                //            npc.GetComponent<NPCTankController>().SetTransition(Transition.LostPlayer);
+                //            GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isSeen = false;
+                //        }
+                //    }
 
-                }
+                //}
                 
 
             }
@@ -103,22 +103,12 @@ public class ChaseState : FSMState
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
         
-        //Change color
-        npcScript.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+     
 
         destPos = player.position;
+        npcScript.agent.SetDestination(destPos);
 
-        //rotate to target its chasgin
-        Quaternion targetRotation = Quaternion.LookRotation(destPos - npc.position);
-        npc.rotation = Quaternion.Slerp(npc.rotation, targetRotation, Time.deltaTime * npcScript.curRotSpeed);
-
-        //Rotate turret to target
-        Transform turret = npc.GetComponent<NPCTankController>().turret.transform;
-        Quaternion turretRotation = Quaternion.LookRotation(destPos - turret.position);
-        turret.rotation = Quaternion.Slerp(turret.rotation, turretRotation, Time.deltaTime * npcScript.curRotSpeed);
-
-        //Go Forward
-        npc.Translate(Vector3.forward * Time.deltaTime * npcScript.curSpeed);
+ 
     }
     
 }
