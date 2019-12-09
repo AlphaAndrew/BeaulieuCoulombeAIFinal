@@ -7,11 +7,16 @@ public class MazeEnd : MonoBehaviour
     private GameObject[] enemies;
     public GameObject winScreen;
     public GameObject loseScreen;
+    private PlayerScript playerScr;
+    private void Start()
+    {
+        playerScr = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+    }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit");
         if (other.gameObject.CompareTag("Player"))
         {
+            playerScr.canMove = false;
             enemies = GameObject.FindGameObjectsWithTag("EnemyMouse");
             foreach(GameObject enemy in enemies)
             {
@@ -21,8 +26,7 @@ public class MazeEnd : MonoBehaviour
         }
         if (other.gameObject.CompareTag("EnemyMouse"))
         {
-            Debug.Log("enemy");
-            //Turn off movement
+            playerScr.canMove = false;
             loseScreen.SetActive(true);
         }
     }

@@ -85,15 +85,15 @@ public class MazeMouse : MonoBehaviour
         {
             if (behaviorType == mouseType.Normal)
             {
-                waitTime = Random.Range(0.5f, 1.0f);
+                waitTime = Random.Range(0.2f, 0.7f);
             }
             if (behaviorType == mouseType.Quick)
             {
-                waitTime = Random.Range(0.1f, 0.3f);
+                waitTime = Random.Range(0.05f, 0.25f);
             }
             if (behaviorType == mouseType.Thinker)
             {
-                waitTime = Random.Range(1.0f, 1.5f);
+                waitTime = Random.Range(0.6f, 1.2f);
             }
             getWaitTime = true;
         }
