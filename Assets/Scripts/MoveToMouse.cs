@@ -11,7 +11,7 @@ public class MoveToMouse : MonoBehaviour
     private NavMeshAgent agent;
     private Rigidbody rigidbody;
     private Vector3 velocity;
-
+    private PlayerScript playerScr;
     public float moveSpeed;
 
     void Start()
@@ -19,17 +19,21 @@ public class MoveToMouse : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         mainCam = Camera.main;
         agent = GetComponent<NavMeshAgent>();
+        playerScr = GetComponent<PlayerScript>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (playerScr.canMove)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+            if (Input.GetMouseButtonDown(0))
             {
-                agent.destination = hit.point;
+                RaycastHit hit;
+
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+                {
+                    agent.destination = hit.point;
+                }
             }
         }
         //Vector3 mousePos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.y));
