@@ -61,7 +61,6 @@ public class AttackState : FSMState
         turret.rotation = Quaternion.Slerp(turret.rotation, turretRotation, Time.deltaTime * npcScript.curTurretRotSpeed);
 
         //Shoot bullet towards the player
-        npc.GetComponent<NPCTankController>().ShootBullet();
     }
    
 }
