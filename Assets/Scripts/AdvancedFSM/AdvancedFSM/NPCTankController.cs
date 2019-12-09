@@ -3,13 +3,12 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.AI;
 public class NPCTankController : AdvancedFSM
 {
-    public GameObject Bullet;
     public float health;
-    public Text tankHealthText;
 
- 
+    public NavMeshAgent agent;
     public bool isDead = false;
     // We overwrite the deprecated built-in `rigidbody` variable.
     new public Rigidbody rigidbody;
@@ -21,16 +20,12 @@ public class NPCTankController : AdvancedFSM
     public int findPointCounter = 0;
     //Waypoints
     public GameObject[] pointList;
-    public int fastFireProb = 20;
-    public int slowFireProb = 80;
-    public bool fastttt = false;
-
+            
     public int FieldOfView;
     public int ViewDistance;
     public Vector3 rayDirection;
-    public Aspect.aspect aspectName = Aspect.aspect.Enemy;
 
-    public ArrayList fireRate = new ArrayList();
+    public Aspect.aspect aspectName = Aspect.aspect.Enemy;
 
     public Quaternion targetRotation;
 
@@ -52,6 +47,7 @@ public class NPCTankController : AdvancedFSM
 
     protected override void Initialize()
     {
+        agent = GetComponent<NavMeshAgent>();
         canHearObjects = new List<GameObject>();
         //setting rot variables
         curTurretRotSpeed = 0.5f;
@@ -76,8 +72,7 @@ public class NPCTankController : AdvancedFSM
             print("Player doesn't exist.. Please add one with Tag named 'Player'");
 
         //Get the turret of the tank
-        turret = gameObject.transform.GetChild(0).gameObject;
-        bulletSpawnPoint = turret.transform.GetChild(0).transform;
+
 
         //Start Doing the Finite State Machine
         ConstructFSM();
@@ -89,7 +84,6 @@ public class NPCTankController : AdvancedFSM
     {
 
         
-        tankHealthText.text = "Tanks Remaining: " + ListCount();
         //Check for health
         elapsedTime += Time.deltaTime;
     }
@@ -151,36 +145,8 @@ public class NPCTankController : AdvancedFSM
         AddFSMState(dead);
         AddFSMState(investigate);
     }
-    public IEnumerator DelayTransition(float time, Transition transitionEvent)
-    {
-
-            Debug.Log("incoroutine");
-            yield return new WaitForSeconds(time);
-            SetTransition(transitionEvent);
-      
-        
-        StopCoroutine(DelayTransition(time, transitionEvent));
-        yield return null;
-    }
-    void OnDrawGizmos()
-    {
-
-        if (!Application.isEditor || playerTransform == null)
-            return;
-
-        Debug.DrawLine(transform.position, transform.position, Color.blue);
-
-        Vector3 frontRayPoint = transform.position + (transform.forward * ViewDistance);
-
-        //Approximate perspective visualization
-        Vector3 leftRayPoint = Quaternion.Euler(0, FieldOfView * 0.5f, 0) * frontRayPoint;
-
-        Vector3 rightRayPoint = Quaternion.Euler(0, -FieldOfView * 0.5f, 0) * frontRayPoint;
-
-        Debug.DrawLine(transform.position, frontRayPoint, Color.blue);
-        Debug.DrawLine(transform.position, leftRayPoint, Color.red);
-        Debug.DrawLine(transform.position, rightRayPoint, Color.red);
-    }
+   
+    
     /// <summary>
     /// Check the collision with the bullet
     /// </summary>
@@ -188,39 +154,7 @@ public class NPCTankController : AdvancedFSM
     void OnCollisionEnter(Collision collision)
     {
         //Reduce health
-        if (collision.gameObject.tag == "Bullet")
-        {
-            health -= 20;
-
-            if (health <= 0)
-            {
-                ListCount();
-                //if (EnemyTanks[counter] == gameObject && ListCount() > 1)
-                //{
-                //    if (counter < ListCount())
-                //    {
-                //        Debug.Log("CounterUp");
-                //        foreach (GameObject tank in EnemyTanks)
-                //        {
-                //            if (tank != null)
-                //            {
-                //                if (tank.GetComponent<NPCTankController>().counter < ListCount() - 1)
-                //                {
-                //                    tank.GetComponent<NPCTankController>().counter++;
-                //                }
-                //                else
-                //                {
-                //                    tank.GetComponent<NPCTankController>().counter = 0;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-                Debug.Log("Switch to Dead State");
-                SetTransition(Transition.NoHealth);
-                Explode();
-            }
-        }
+       
  
     }
 
@@ -249,42 +183,5 @@ public class NPCTankController : AdvancedFSM
         }
         return listCounter;
     }
-    protected void Explode()
-    {
-        foreach (GameObject tank in EnemyTanks)
-        {
-            if (tank != null)
-            {
-                tank.GetComponent<NPCTankController>().chaseProb -= 20;
-            }
-        }
-        if (ListCount() == 1)
-        {
-            playerTransform.gameObject.GetComponent<PlayerScript>().WinGame();
-        }
-        float rndX = Random.Range(10.0f, 30.0f);
-        float rndZ = Random.Range(10.0f, 30.0f);
-        for (int i = 0; i < 3; i++)
-        {
-            rigidbody.AddExplosionForce(10000.0f, transform.position - new Vector3(rndX, 10.0f, rndZ), 40.0f, 10.0f);
-            rigidbody.velocity = transform.TransformDirection(new Vector3(rndX, 20.0f, rndZ));
-        }
-      
-        Destroy(gameObject, 1.5f);
-     
-    }
-
-
-
-    /// <summary>
-    /// Shoot the bullet from the turret
-    /// </summary>
-    public void ShootBullet()
-    {
-        if (elapsedTime >= shootRate)
-        {
-            Instantiate(Bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            elapsedTime = 0.0f;
-        }
-    }
+   
 }

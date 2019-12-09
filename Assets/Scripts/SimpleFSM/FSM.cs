@@ -29,12 +29,6 @@ public class FSM : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        GameObject[] Tanks = GameObject.FindGameObjectsWithTag("EnemyTank");
-       // GameObject[] Tanks2 = GameObject.FindGameObjectsWithTag("FastTank");
-        EnemyTanks = new List<GameObject>(Tanks);
-        //for (int i = 0; i < Tanks.Length; i++){
-        //    EnemyTanks.Add(Tanks2[i]);
-        //}
         Initialize(); 
 	}
 	

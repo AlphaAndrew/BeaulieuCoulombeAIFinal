@@ -108,7 +108,7 @@ public class PatrolState : FSMState
            }
        */
 
-        if (Vector3.Distance(npc.position, destPos) <= 100.0f)
+        if (Vector3.Distance(npc.position, npcScript.agent.destination) <= 10.0f)
         {
             if(npcScript.pathing == PathingMode.Random)
             {
@@ -134,26 +134,24 @@ public class PatrolState : FSMState
             if (npcScript.pathing == PathingMode.Random)
             {
                 FindNextRandPoint();
+                npcScript.agent.SetDestination(destPos);
             }
             else if (npcScript.pathing == PathingMode.Order)
             {
                 FindNextWayPoint();
+                npcScript.agent.SetDestination(destPos);
             }
             npcScript.findPointCounter++;
         }
 
 
-        //Change color
-        npcScript.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+       
 
 
 
         //Rotate to the target point
         Quaternion targetRotation = Quaternion.LookRotation(destPos - npc.position);
         npc.rotation = Quaternion.Slerp(npc.rotation, targetRotation, Time.deltaTime * npcScript.curRotSpeed);
-        
-        //move forward
-        npc.Translate(Vector3.forward * Time.deltaTime * npcScript.curSpeed);
     }
    
 }
