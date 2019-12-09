@@ -31,7 +31,7 @@ public class MazeMouse : MonoBehaviour
     //Start
     void Start()
     {
-        agent = GetComponentInParent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         currentState = mouseStates.Run;
         agent.destination = waypoints[0].transform.position;
 
@@ -103,14 +103,6 @@ public class MazeMouse : MonoBehaviour
         {
             getWaitTime = false;
             currentState = mouseStates.Run;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("End"))
-        {
-            Debug.Log("end");
         }
     }
 }
