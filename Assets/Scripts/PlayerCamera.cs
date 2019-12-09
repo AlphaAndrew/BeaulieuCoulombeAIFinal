@@ -21,15 +21,15 @@ public class PlayerCamera : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.transform;
         cameraComponent = this.gameObject.GetComponent<Camera>();
-        cameraComponent.fieldOfView = 140;
+        //cameraComponent.fieldOfView = 140;
     }
 
     void Update()
     {
-        if (cameraComponent.fieldOfView > 60)
-        {
-            cameraComponent.fieldOfView--;
-        }
+        //if (cameraComponent.fieldOfView > 60)
+        //{
+        //    cameraComponent.fieldOfView--;
+        //}
         if (!bossCam)
         {
             Vector3 pos = new Vector3();
