@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: ced355c57adba0c4986adfc8c16749c8
+  - enabled: 1
+    path: Assets/Scenes/Maze.unity
+    guid: 10c514e8f81f8bc4f857cef00f271749
+  - enabled: 1
+    path: Assets/Scenes/Cats.unity
+    guid: c46da56d1ed9e1644beb095029a046dd
+  - enabled: 1
+    path: Assets/Scenes/Jail.unity
+    guid: 821c3cf62176c3942abcb70230546a3b
   m_configObjects: {}
