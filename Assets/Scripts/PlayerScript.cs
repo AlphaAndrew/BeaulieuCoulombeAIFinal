@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     private float internalSardineCD;
     public bool isSeen;
     public bool isHeard;
+    public GameObject loseScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,12 @@ public class PlayerScript : MonoBehaviour
                 internalSardineCD = sardineCD;
             }
         }
+    }
+    public void FoundPlayer()
+    {
+        canMove = false;
+        loseScreen.SetActive(true);
+ 
     }
     public void WinGame()
     {
