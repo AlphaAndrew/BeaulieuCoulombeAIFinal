@@ -64,7 +64,7 @@ public class PatrolState : FSMState
                         //100% chance
                         npcScript.cantHearDebug = true;
                         GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isHeard = true;
-                        npcScript.SetTransition(Transition.SawPlayer);
+                        //npcScript.SetTransition(Transition.SawPlayer);
                     }
                     else
                     {
@@ -77,7 +77,7 @@ public class PatrolState : FSMState
                         {
                             npcScript.cantHearDebug = true;
                             GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isHeard = true;
-                            npcScript.SetTransition(Transition.SawPlayer);
+                          //  npcScript.SetTransition(Transition.SawPlayer);
                         }
                         
                     }
@@ -89,7 +89,7 @@ public class PatrolState : FSMState
             {
                 if(npcScript.canHearObjects.Contains(player.gameObject)){
                     Debug.Log("Investigating");
-                    npcScript.SetTransition(Transition.HeardSomething);
+                    npcScript.SetTransition(Transition.SmelledSardine);
                 }
             }
             else

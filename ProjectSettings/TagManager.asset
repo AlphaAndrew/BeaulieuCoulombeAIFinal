@@ -6,6 +6,8 @@ TagManager:
   tags:
   - EnemyMouse
   - End
+  - Cat
+  - Sardine
   layers:
   - Default
   - TransparentFX

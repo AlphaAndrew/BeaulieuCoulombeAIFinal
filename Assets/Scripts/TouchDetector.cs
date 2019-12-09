@@ -28,7 +28,7 @@ public class TouchDetector : MonoBehaviour
                 if (aspect.aspectName == Aspect.aspect.Player)
                 {
                     //playerScript.isTouching = true;
-                    npcScript.SetTransition(Transition.SawPlayer);
+                   // npcScript.SetTransition(Transition.SawPlayer);
                 }
 
             }

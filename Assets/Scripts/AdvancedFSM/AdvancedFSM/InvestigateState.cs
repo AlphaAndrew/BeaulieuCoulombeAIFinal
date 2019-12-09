@@ -13,29 +13,34 @@ public class InvestigateState : FSMState
         stateID = FSMStateID.Investigating;
         // curRotSpeed = 1.0f;
         // curSpeed = 100.0f;
-
-        //find next Waypoint position
-        FindNextRandPoint();
     }
     public override void Reason(Transform player, Transform npc)
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
-        float dist = Vector3.Distance(player.position, npc.position);
-        npcScript.detectionTimer += Time.deltaTime;
-        Debug.Log("reason");
+        float distToSardine = Vector3.Distance(npc.position, npcScript.targetSardine.transform.position);
 
-
-        if (npcScript.detectionTimer >= npcScript.detectionRate && investigateTime >= 1.0f)
+       investigateTime += Time.deltaTime;
+       
+        if(distToSardine <= 2.0f)
         {
-           
+            npcScript.agent.isStopped = true;
         }
-     }
+        if(investigateTime >= 5.0f)
+        {
+            npcScript.SetTransition(Transition.LostPlayer);
+            investigateTime = 0;
+            npcScript.findPointCounter = 0;
+            npcScript.agent.isStopped = false;
+        }
+    }
 
 
     public override void Act(Transform player, Transform npc)
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
-       
+
+        npcScript.agent.SetDestination(npcScript.targetSardine.transform.position);
+        
     }
 }
 
