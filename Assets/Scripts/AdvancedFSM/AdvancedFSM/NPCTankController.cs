@@ -62,8 +62,8 @@ public class NPCTankController : AdvancedFSM
         curSpeed = 100.0f;
 
 
-        //health
-        health = 100;
+    //health
+    health = 100;
         //referencing the heal areas location
         elapsedTime = 0.0f;
 
@@ -193,16 +193,19 @@ public class NPCTankController : AdvancedFSM
                     targetsInSight.Add(target.gameObject);
                     if( target.CompareTag("Player")){
                         //saw player
-                        FoundPlayer();
+                        target.GetComponent<PlayerScript>().FoundPlayer();
+                        CatFoundPlayer(target.transform);
                     }
                 }
             }
         }
     }
     /////////////////////////LOS
-    public void FoundPlayer()
+    public void CatFoundPlayer(Transform target)
     {
-        Debug.Log("Found player");
+        gameObject.transform.LookAt(target);
+        agent.isStopped = true;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
     public float getHealth()
     {
