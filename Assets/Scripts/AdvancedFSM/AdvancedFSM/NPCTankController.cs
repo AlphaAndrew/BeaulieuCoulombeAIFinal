@@ -20,10 +20,14 @@ public class NPCTankController : AdvancedFSM
     public int findPointCounter = 0;
     //Waypoints
     public GameObject[] pointList;
-            
-    public int FieldOfView;
-    public int ViewDistance;
+
+    public float viewRadius;
+    [Range(0, 360)]   
+    public int viewAngle;
     public Vector3 rayDirection;
+    public LayerMask targetMask;
+    public LayerMask obstacleMask;
+    public List<GameObject> targetsInSight;
 
     public Aspect.aspect aspectName = Aspect.aspect.Enemy;
 
@@ -34,8 +38,6 @@ public class NPCTankController : AdvancedFSM
     {
         LineOfSight,
         Sound,
-        Touch,
-        Investigate,
         None
     }
     public AggroType aggroType;
@@ -47,6 +49,7 @@ public class NPCTankController : AdvancedFSM
 
     protected override void Initialize()
     {
+        targetsInSight = new List<GameObject>();
         agent = GetComponent<NavMeshAgent>();
         canHearObjects = new List<GameObject>();
         //setting rot variables
@@ -76,6 +79,12 @@ public class NPCTankController : AdvancedFSM
 
         //Start Doing the Finite State Machine
         ConstructFSM();
+        //start Los coroutine
+        if(aggroType == AggroType.LineOfSight)
+        {
+            
+            StartCoroutine("FindTargetsWithDelay", .2f);
+        }
     }
 
 
@@ -158,6 +167,52 @@ public class NPCTankController : AdvancedFSM
  
     }
 
+   ////////////////////////////LOS
+    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal )
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+    IEnumerator FindTargetsWithDelay(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            Debug.Log("Finding Targets");
+            FindVisableTargets();
+        }
+    }
+    public void FindVisableTargets()
+    {
+        targetsInSight.Clear();
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        for(int i = 0; i < targetsInViewRadius.Length; i++)
+        {
+            Transform target = targetsInViewRadius[i].transform;
+            Vector3 dirToTarget = (target.position - gameObject.transform.position).normalized;
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            {
+                float distToTarget = Vector3.Distance(transform.position, target.position);
+
+                if(!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                {
+                    targetsInSight.Add(target.gameObject);
+                    if( target.CompareTag("Player")){
+                        //saw player
+                        FoundPlayer();
+                    }
+                }
+            }
+        }
+    }
+    /////////////////////////LOS
+    public void FoundPlayer()
+    {
+        Debug.Log("Found player");
+    }
     public float getHealth()
     {
         return health;
