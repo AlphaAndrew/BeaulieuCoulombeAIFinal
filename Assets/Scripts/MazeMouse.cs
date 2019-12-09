@@ -65,10 +65,18 @@ public class MazeMouse : MonoBehaviour
 
     public void Run()
     {
+        agent.destination = waypoints[waypointCounter].transform.position;
         if (Vector3.Distance(this.transform.position, agent.destination)< 1.0f)
         {
-            waypointCounter++;
-            currentState = mouseStates.Think;
+            if (waypointCounter + 1 == waypoints.Length)
+            {
+                //Lose
+            }
+            else
+            {
+                waypointCounter++;
+                currentState = mouseStates.Think;
+            }
         }
     }
     public void Think()
@@ -90,6 +98,11 @@ public class MazeMouse : MonoBehaviour
             getWaitTime = true;
         }
 
-
+        waitTime -= Time.deltaTime;
+        if (waitTime <= 0)
+        {
+            getWaitTime = false;
+            currentState = mouseStates.Run;
+        }
     }
 }
