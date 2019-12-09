@@ -10089,11 +10089,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8450020674168724303, guid: 6c65bee16ab5dbe48be051f0418d4e8d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 8450020674168724341, guid: 6c65bee16ab5dbe48be051f0418d4e8d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10149,45 +10144,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8450020674168724336, guid: 6c65bee16ab5dbe48be051f0418d4e8d,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8450020674168724342, guid: 6c65bee16ab5dbe48be051f0418d4e8d,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1218793277178895767, guid: 6c65bee16ab5dbe48be051f0418d4e8d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_Speed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1506475936, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 193264005}
-    - target: {fileID: 1506475935, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 55296d1b6ee54e14e8eb4648d4b448ee, type: 2}
     - target: {fileID: 1681337840, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 817190303}
-    - target: {fileID: 1681337839, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 55296d1b6ee54e14e8eb4648d4b448ee, type: 2}
     - target: {fileID: 2109867477, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 180745422}
-    - target: {fileID: 2109867476, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 55296d1b6ee54e14e8eb4648d4b448ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c65bee16ab5dbe48be051f0418d4e8d, type: 3}
 --- !u!1 &545092876

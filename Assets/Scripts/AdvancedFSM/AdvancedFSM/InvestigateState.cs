@@ -6,7 +6,7 @@ using UnityEngine;
 public class InvestigateState : FSMState
 {
     private float investigateTime = 0;
-
+    private float distToSardine = 0;
     public InvestigateState(Transform[] wp)
     {
         waypoints = wp;
@@ -17,20 +17,36 @@ public class InvestigateState : FSMState
     public override void Reason(Transform player, Transform npc)
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
-        float distToSardine = Vector3.Distance(npc.position, npcScript.targetSardine.transform.position);
 
-       investigateTime += Time.deltaTime;
-       
-        if(distToSardine <= 2.0f)
+        if (npcScript.targetSardine == null)
         {
-            npcScript.agent.isStopped = true;
-        }
-        if(investigateTime >= 5.0f)
-        {
-            npcScript.SetTransition(Transition.LostPlayer);
+
+            npcScript.agent.isStopped = false;
             investigateTime = 0;
             npcScript.findPointCounter = 0;
-            npcScript.agent.isStopped = false;
+            npcScript.SetTransition(Transition.LostPlayer);
+        }
+        else
+        {
+            distToSardine = Vector3.Distance(npc.position, npcScript.targetSardine.transform.position);
+
+
+            investigateTime += Time.deltaTime;
+
+            if (distToSardine <= 2.0f)
+            {
+                npcScript.agent.isStopped = true;
+                npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+            }
+            if (investigateTime >= 4f)
+            {
+                investigateTime = 0;
+                npcScript.findPointCounter = 0;
+                npcScript.agent.isStopped = false;
+                npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                npcScript.SetTransition(Transition.LostPlayer);
+            }
         }
     }
 
@@ -39,7 +55,20 @@ public class InvestigateState : FSMState
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
 
-        npcScript.agent.SetDestination(npcScript.targetSardine.transform.position);
+        if (npcScript.targetSardine == null)
+        {
+            npcScript.agent.isStopped = false;
+            investigateTime = 0;
+            npcScript.findPointCounter = 0;
+            npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            npcScript.SetTransition(Transition.LostPlayer);
+        }
+        else
+        {
+            distToSardine = Vector3.Distance(npc.position, npcScript.targetSardine.transform.position);
+
+            npcScript.agent.SetDestination(npcScript.targetSardine.transform.position);
+        }
         
     }
 }
