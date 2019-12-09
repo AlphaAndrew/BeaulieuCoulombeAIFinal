@@ -9,6 +9,7 @@ public class MazeEnd : MonoBehaviour
     public GameObject loseScreen;
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("hit");
         if (other.gameObject.CompareTag("Player"))
         {
             enemies = GameObject.FindGameObjectsWithTag("EnemyMouse");
@@ -20,6 +21,7 @@ public class MazeEnd : MonoBehaviour
         }
         if (other.gameObject.CompareTag("EnemyMouse"))
         {
+            Debug.Log("enemy");
             //Turn off movement
             loseScreen.SetActive(true);
         }
