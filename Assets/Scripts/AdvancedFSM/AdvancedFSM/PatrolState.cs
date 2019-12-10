@@ -101,10 +101,21 @@ public class PatrolState : FSMState
             }
             npcScript.detectionTimer = 0;
         }
-        if (Vector3.Distance(npc.position, waypoints[waypointCounter].position) <= 3.0f)
+
+        if(Vector3.Distance(npc.position, player.position) <= 4.5f)
         {
-            npcScript.agent.isStopped = true;
+            Debug.Log("Touched Player");
+            player.GetComponent<PlayerScript>().FoundPlayer();
+            npcScript.GetComponent<FieldOfView>().CatFoundPlayer(player);
+            npcScript.agent.velocity = Vector3.zero;
             npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            npcScript.agent.isStopped = true;
+        }
+        if (Vector3.Distance(npc.position, waypoints[waypointCounter].position) <= 2.0f)
+        {
+            npcScript.agent.velocity = Vector3.zero;
+            npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            npcScript.agent.isStopped = true;
             npcScript.pathingBuffer += Time.deltaTime;
             if (npcScript.pathingBuffer > 1f)
             {

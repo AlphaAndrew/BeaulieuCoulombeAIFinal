@@ -23,7 +23,7 @@ public class InvestigateState : FSMState
 
             npcScript.agent.isStopped = false;
             investigateTime = 0;
-           // npcScript.findPointCounter = 0;
+            npcScript.findPointCounter = 0;
             npcScript.isEatingSardines = false;
             npcScript.SetTransition(Transition.LostPlayer);
         }
@@ -35,14 +35,15 @@ public class InvestigateState : FSMState
 
             if (distToSardine <= 3.5f)
             {
-                npcScript.agent.isStopped = true;
+                npcScript.agent.velocity = Vector3.zero;
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                npcScript.agent.isStopped = true;
 
             }
             if (investigateTime >= 4f)
             {
                 investigateTime = 0;
-             //   npcScript.findPointCounter = 0;
+                npcScript.findPointCounter = 0;
                 npcScript.agent.isStopped = false;
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 npcScript.isEatingSardines = false;
@@ -56,17 +57,9 @@ public class InvestigateState : FSMState
     {
         NPCTankController npcScript = npc.gameObject.GetComponent<NPCTankController>();
 
-        if (npcScript.targetSardine == null)
+        if (npcScript.targetSardine != null)
         {
-            npcScript.agent.isStopped = false;
-            investigateTime = 0;
-            //npcScript.findPointCounter = 0;
-            npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            npcScript.isEatingSardines = false;
-            npcScript.SetTransition(Transition.LostPlayer);
-        }
-        else
-        {
+           
             distToSardine = Vector3.Distance(npc.position, npcScript.targetSardine.transform.position);
 
             npcScript.agent.SetDestination(npcScript.targetSardine.transform.position);

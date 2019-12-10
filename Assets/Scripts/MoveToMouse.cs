@@ -45,7 +45,7 @@ public class MoveToMouse : MonoBehaviour
         }
         if (velocity == new Vector3(0, 0, 0))
         {
-            Debug.Log("Stopping Agent");
+
             if(agentScript != null)
                 agentScript.agent.isStopped = true;
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;

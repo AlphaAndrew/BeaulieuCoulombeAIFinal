@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor (typeof (NPCTankController))]
+[CustomEditor (typeof (FieldOfView))]
 public class EditorGizmos : Editor
 {
     private void OnSceneGUI()
     {
-        NPCTankController fov = (NPCTankController)target;
+        FieldOfView fov = (FieldOfView)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.viewRadius);
         Vector3 viewAngleA = fov.DirFromAngle(-fov.viewAngle / 2, false);
