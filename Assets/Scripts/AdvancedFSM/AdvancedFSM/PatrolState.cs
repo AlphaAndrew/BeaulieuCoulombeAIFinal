@@ -117,10 +117,12 @@ public class PatrolState : FSMState
             npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             npcScript.agent.isStopped = true;
             npcScript.pathingBuffer += Time.deltaTime;
+
             if (npcScript.pathingBuffer > 1f)
             {
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 npcScript.agent.isStopped = false;
+
                 if (npcScript.pathing == PathingMode.Random)
                 {
                     Debug.Log("findnextrand");
