@@ -23,17 +23,23 @@ public class InvestigateState : FSMState
 
             npcScript.agent.isStopped = false;
             investigateTime = 0;
-            if (waypointCounter < waypoints.Length - 1)
-            {
-                waypointCounter += 1;
-                npcScript.agent.SetDestination(waypoints[waypointCounter].position);
-            }
-            else
-            {
-                waypointCounter = 0;
-                npcScript.agent.SetDestination(waypoints[waypointCounter].position);
 
-            }
+            npcScript.findPointCounter = 0;
+            Debug.Log("Waypoint count is" + waypointCounter);
+            Debug.Log("Waypoing Length is" + waypoints.Length);
+            //if (waypointCounter < waypoints.Length - 1)
+            //{
+            //    Debug.Log("+1");
+            //    waypointCounter++;
+            //    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+            //}
+            //else
+            //{
+            //    Debug.Log("0");
+            //    waypointCounter = 0;
+            //    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+
+            //}
             npcScript.isEatingSardines = false;
             npcScript.SetTransition(Transition.LostPlayer);
         }
@@ -50,21 +56,22 @@ public class InvestigateState : FSMState
                 npcScript.agent.isStopped = true;
 
             }
-            if (investigateTime >= 5.5f)
+            if (investigateTime >= 6f)
             {
                 investigateTime = 0;
-                //npcScript.findPointCounter = 0;
-                if (waypointCounter < waypoints.Length - 1)
-                {
-                    waypointCounter += 1;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
-                }
-                else
-                {
-                    waypointCounter = 0;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                npcScript.findPointCounter = 0;
 
-                }
+                //if (waypointCounter < waypoints.Length - 1)
+                //{
+                //    waypointCounter += 1;
+                //    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                //}
+                //else
+                //{
+                //    waypointCounter = 0;
+                //    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+
+                //}
                 npcScript.agent.isStopped = false;
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 npcScript.isEatingSardines = false;

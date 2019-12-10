@@ -11,7 +11,7 @@ public class Sardine : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, force));
-        Destroy(this.gameObject, 6.5f);
+        Destroy(this.gameObject, 7f);
         Invoke("DisableRB", 2f);
     }
     void DisableRB()
