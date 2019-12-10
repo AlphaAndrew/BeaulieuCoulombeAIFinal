@@ -12,8 +12,12 @@ public class Sardine : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, force));
         Destroy(this.gameObject, 6.0f);
+        Invoke("DisableRB", 2f);
     }
-
+    void DisableRB()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
     // Update is called once per frame
     void Update()
     {
