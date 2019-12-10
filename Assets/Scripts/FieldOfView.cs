@@ -62,6 +62,11 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     visibleTargets.Add(target);
+                    if (target.CompareTag("Player"))
+                    {
+                        CatFoundPlayer(target);
+                        target.GetComponent<PlayerScript>().FoundPlayer();
+                    }
                 }
             }
         }
@@ -213,9 +218,8 @@ public class FieldOfView : MonoBehaviour
     {
         gameObject.transform.LookAt(target);
         agentScript.agent.speed = 2;
-        agentScript.agent.SetDestination(target.position);
-        //agentScript.agent.isStopped = true;
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        agentScript.agent.isStopped = true;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
     // Update is called once per frame
 

@@ -14,8 +14,11 @@ public class MoveToMouse : MonoBehaviour
     public Vector3 m_velocity;
     private PlayerScript playerScr;
     private NPCTankController agentScript;
-    public float moveSpeed;
 
+    public Animator animator;
+
+    public float moveSpeed;
+    public bool isPathing = false;
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -26,8 +29,18 @@ public class MoveToMouse : MonoBehaviour
 
     void Update()
     {
-        m_velocity = agent.velocity.normalized;
         velocity = agent.velocity;
+
+        isPathing = velocity.normalized.x != 0 ? true : false;
+        if (isPathing)
+        {
+            //set true
+            animator.SetBool("isPathing", true);
+        }
+        else
+        {
+            animator.SetBool("isPathing", false);
+        }
 
         if (playerScr.canMove)
         {
