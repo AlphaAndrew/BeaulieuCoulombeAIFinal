@@ -23,7 +23,17 @@ public class InvestigateState : FSMState
 
             npcScript.agent.isStopped = false;
             investigateTime = 0;
-            npcScript.findPointCounter++;
+            if (waypointCounter < waypoints.Length - 1)
+            {
+                waypointCounter += 1;
+                npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+            }
+            else
+            {
+                waypointCounter = 0;
+                npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+
+            }
             npcScript.isEatingSardines = false;
             npcScript.SetTransition(Transition.LostPlayer);
         }
@@ -44,7 +54,17 @@ public class InvestigateState : FSMState
             {
                 investigateTime = 0;
                 //npcScript.findPointCounter = 0;
-                npcScript.findPointCounter++;
+                if (waypointCounter < waypoints.Length - 1)
+                {
+                    waypointCounter += 1;
+                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                }
+                else
+                {
+                    waypointCounter = 0;
+                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+
+                }
                 npcScript.agent.isStopped = false;
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 npcScript.isEatingSardines = false;

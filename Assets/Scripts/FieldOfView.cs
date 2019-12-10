@@ -73,9 +73,12 @@ public class FieldOfView : MonoBehaviour
                     visibleTargets.Add(target);
                     if (target.CompareTag("Player"))
                     {
-                        if(!agentScript.isEatingSardines)
+                        if (!agentScript.isEatingSardines)
+                        {
+                            Debug.Log("not eating and saw");
                             CatFoundPlayer(target);
                             target.GetComponent<PlayerScript>().FoundPlayer();
+                        }
                     }
                 }
             }

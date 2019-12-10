@@ -123,7 +123,9 @@ public class PatrolState : FSMState
                 npcScript.agent.isStopped = false;
                 if (npcScript.pathing == PathingMode.Random)
                 {
+                    Debug.Log("findnextrand");
                     FindNextRandPoint();
+                    npcScript.agent.SetDestination(destPos);
                 }
                 else if (npcScript.pathing == PathingMode.Order)
                 {
@@ -154,6 +156,7 @@ public class PatrolState : FSMState
                 if (npcScript.pathing == PathingMode.Random)
                 {
                     FindNextRandPoint();
+                    npcScript.agent.SetDestination(destPos);
                 }
                 else if (npcScript.pathing == PathingMode.Order)
                 {
