@@ -23,7 +23,7 @@ public class InvestigateState : FSMState
 
             npcScript.agent.isStopped = false;
             investigateTime = 0;
-            npcScript.findPointCounter = 0;
+            npcScript.findPointCounter++;
             npcScript.isEatingSardines = false;
             npcScript.SetTransition(Transition.LostPlayer);
         }
@@ -40,7 +40,7 @@ public class InvestigateState : FSMState
                 npcScript.agent.isStopped = true;
 
             }
-            if (investigateTime >= 4f)
+            if (investigateTime >= 5.5f)
             {
                 investigateTime = 0;
                 //npcScript.findPointCounter = 0;
