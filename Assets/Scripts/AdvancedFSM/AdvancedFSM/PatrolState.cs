@@ -102,7 +102,7 @@ public class PatrolState : FSMState
             npcScript.detectionTimer = 0;
         }
 
-        if(Vector3.Distance(npc.position, player.position) <= 4.5f)
+        if(Vector3.Distance(npc.position, player.position) <= 3.5f)
         {
             Debug.Log("Touched Player");
             player.GetComponent<PlayerScript>().FoundPlayer();

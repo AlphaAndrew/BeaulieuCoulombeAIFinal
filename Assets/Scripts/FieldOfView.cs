@@ -44,8 +44,16 @@ public class FieldOfView : MonoBehaviour
 
     void LateUpdate()
     {
-        if(!agentScript.isEatingSardines)
-        DrawFieldOfView();
+        if (!agentScript.isEatingSardines)
+        {
+            agentScript.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = true;
+            DrawFieldOfView();
+        }
+        else
+        {
+            agentScript.gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = false;
+        }
+
     }
 
     void FindVisibleTargets()
