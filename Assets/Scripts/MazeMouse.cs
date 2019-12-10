@@ -26,7 +26,7 @@ public class MazeMouse : MonoBehaviour
     private NavMeshAgent agent;
     private float waitTime;
     private bool getWaitTime = false;
-
+    public Animator animator;
 
     //Start
     void Start()
@@ -52,6 +52,7 @@ public class MazeMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         switch (currentState)
         {
             case mouseStates.Run:
