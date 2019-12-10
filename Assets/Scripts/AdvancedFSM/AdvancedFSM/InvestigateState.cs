@@ -43,7 +43,8 @@ public class InvestigateState : FSMState
             if (investigateTime >= 4f)
             {
                 investigateTime = 0;
-                npcScript.findPointCounter = 0;
+                //npcScript.findPointCounter = 0;
+                npcScript.findPointCounter++;
                 npcScript.agent.isStopped = false;
                 npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 npcScript.isEatingSardines = false;
