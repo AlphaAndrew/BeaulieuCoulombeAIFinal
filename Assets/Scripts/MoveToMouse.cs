@@ -56,6 +56,10 @@ public class MoveToMouse : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            agent.isStopped = true;
+        }
         if (velocity == new Vector3(0, 0, 0))
         {
 

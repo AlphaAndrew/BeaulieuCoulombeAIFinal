@@ -29,14 +29,17 @@ public class MazeMouse : MonoBehaviour
     public Animator animator;
     public Vector3 velocity;
     public bool isPathing = false;
-
+    public bool isSqueak = false;
+    public float squeakTime;
+    private float internalSqueakTime;
+    private float baseSpeed;
     //Start
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         currentState = mouseStates.Run;
         agent.destination = waypoints[0].transform.position;
-
+        internalSqueakTime = squeakTime;
         if (behaviorType == mouseType.Normal)
         {
             agent.speed = 3.0f;
@@ -49,6 +52,7 @@ public class MazeMouse : MonoBehaviour
         {
             agent.speed = 2.0f;
         }
+        baseSpeed = agent.speed;
     }
 
     // Update is called once per frame
@@ -65,6 +69,21 @@ public class MazeMouse : MonoBehaviour
         else
         {
             animator.SetBool("isPathing", false);
+        }
+
+        if (isSqueak)
+        {
+            if (internalSqueakTime > 0)
+            {
+                internalSqueakTime -= Time.deltaTime;
+                agent.speed = baseSpeed * 2.0f;
+            }
+            else if (internalSqueakTime <= 0)
+            {
+                isSqueak = false;
+                agent.speed = baseSpeed;
+                internalSqueakTime = squeakTime;
+            }
         }
 
         switch (currentState)
@@ -118,6 +137,15 @@ public class MazeMouse : MonoBehaviour
         {
             getWaitTime = false;
             currentState = mouseStates.Run;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("play");
+            isSqueak = true;
         }
     }
 }
