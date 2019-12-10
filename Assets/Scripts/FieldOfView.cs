@@ -44,6 +44,7 @@ public class FieldOfView : MonoBehaviour
 
     void LateUpdate()
     {
+        if(!agentScript.isEatingSardines)
         DrawFieldOfView();
     }
 
