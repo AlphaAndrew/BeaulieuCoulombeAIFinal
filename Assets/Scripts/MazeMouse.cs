@@ -27,6 +27,8 @@ public class MazeMouse : MonoBehaviour
     private float waitTime;
     private bool getWaitTime = false;
     public Animator animator;
+    public Vector3 velocity;
+    public bool isPathing = false;
 
     //Start
     void Start()
@@ -52,6 +54,18 @@ public class MazeMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        velocity = agent.velocity;
+
+        isPathing = velocity.normalized.x != 0 ? true : false;
+        if (isPathing)
+        {
+            //set true
+            animator.SetBool("isPathing", true);
+        }
+        else
+        {
+            animator.SetBool("isPathing", false);
+        }
 
         switch (currentState)
         {

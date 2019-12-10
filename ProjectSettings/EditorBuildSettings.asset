@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Jail.unity
     guid: 821c3cf62176c3942abcb70230546a3b
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: b549e4810b77fd142ac8c669426bcae0
   m_configObjects: {}
