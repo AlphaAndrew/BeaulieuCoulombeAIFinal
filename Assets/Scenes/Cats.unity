@@ -77689,6 +77689,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueCat
       objectReference: {fileID: 0}
+    - target: {fileID: 6184992578924715002, guid: 028532544b53b2f41a7474a9f7912098,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6184992578891508027, guid: 028532544b53b2f41a7474a9f7912098,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77789,11 +77794,6 @@ PrefabInstance:
       propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6184992578924715002, guid: 028532544b53b2f41a7474a9f7912098,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6184992578924715001, guid: 028532544b53b2f41a7474a9f7912098,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -77829,7 +77829,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -6478536213147159724, guid: ee82cfb3f567a184b9cb295d524ef17a,
+      objectReference: {fileID: -3033667219593020291, guid: ee82cfb3f567a184b9cb295d524ef17a,
         type: 3}
     - target: {fileID: 84965344, guid: 028532544b53b2f41a7474a9f7912098, type: 3}
       propertyPath: m_IsTrigger
@@ -78059,6 +78059,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9109000643989801702, guid: fb09fb95ac455ed45b9026003c354532,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e67cd1daf744ed7429b44141d6582b95, type: 2}
+    - target: {fileID: 9109000643989801702, guid: fb09fb95ac455ed45b9026003c354532,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8433542863673708483, guid: fb09fb95ac455ed45b9026003c354532,
         type: 3}
       propertyPath: pointList.Array.size
@@ -78173,16 +78183,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1254412006, guid: fb09fb95ac455ed45b9026003c354532, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9109000643989801702, guid: fb09fb95ac455ed45b9026003c354532,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: e67cd1daf744ed7429b44141d6582b95, type: 2}
-    - target: {fileID: 9109000643989801702, guid: fb09fb95ac455ed45b9026003c354532,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
