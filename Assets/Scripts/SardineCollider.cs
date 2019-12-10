@@ -22,6 +22,7 @@ public class SardineCollider : MonoBehaviour
             {
                 this.gameObject.GetComponentInParent<NPCTankController>().SetTransition(Transition.SmelledSardine);
                 npcScript.GetComponent<NPCTankController>().targetSardine = other.gameObject;
+                npcScript.isEatingSardines = true;
             }
         }
     }

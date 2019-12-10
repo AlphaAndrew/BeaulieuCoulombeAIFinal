@@ -20,7 +20,7 @@ public class NPCTankController : AdvancedFSM
     public int findPointCounter = 0;
     //Waypoints
     public GameObject[] pointList;
-
+    public bool isEatingSardines = false;
     public float viewRadius;
     [Range(0, 360)]   
     public int viewAngle;
@@ -34,8 +34,8 @@ public class NPCTankController : AdvancedFSM
     public Quaternion targetRotation;
 
     public GameObject targetSardine;
+    public float pathingBuffer = 0;
 
-    public int chaseProb = 80;
     public enum AggroType
     {
         LineOfSight,
@@ -192,9 +192,12 @@ public class NPCTankController : AdvancedFSM
                 {
                     targetsInSight.Add(target.gameObject);
                     if( target.CompareTag("Player")){
-                        //saw player
-                        target.GetComponent<PlayerScript>().FoundPlayer();
-                        CatFoundPlayer(target.transform);
+                        //saw player if not eating
+                        if (!isEatingSardines)
+                        {
+                            target.GetComponent<PlayerScript>().FoundPlayer();
+                            CatFoundPlayer(target.transform);
+                        }
                     }
                 }
             }

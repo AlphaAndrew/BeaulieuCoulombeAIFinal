@@ -69,25 +69,28 @@ public class PatrolState : FSMState
                     else
                     {
                         //Cuts chance in half depending on the amount of tanks in the list
-                       
+
                         int randNum;
                         randNum = Random.Range(1, 100);
                         Debug.Log("testRand");
-                        if (randNum < (100 / (npcScript.canHearObjects.Count*5)))
+                        if (randNum < (100 / (npcScript.canHearObjects.Count * 5)))
                         {
                             npcScript.cantHearDebug = true;
                             GameObject.FindWithTag("Player").GetComponent<PlayerScript>().isHeard = true;
-                          //  npcScript.SetTransition(Transition.SawPlayer);
+                            //  npcScript.SetTransition(Transition.SawPlayer);
                         }
-                        
+
                     }
                 }
-            }else if(npcScript.aggroType.ToString() == "Touch")
+            }
+            else if (npcScript.aggroType.ToString() == "Touch")
             {
 
-            }else if(npcScript.aggroType.ToString() == "Investigate")
+            }
+            else if (npcScript.aggroType.ToString() == "Investigate")
             {
-                if(npcScript.canHearObjects.Contains(player.gameObject)){
+                if (npcScript.canHearObjects.Contains(player.gameObject))
+                {
                     Debug.Log("Investigating");
                     npcScript.SetTransition(Transition.SmelledSardine);
                 }
@@ -98,32 +101,36 @@ public class PatrolState : FSMState
             }
             npcScript.detectionTimer = 0;
         }
-
         if (Vector3.Distance(npc.position, waypoints[waypointCounter].position) <= 3.0f)
         {
-            Debug.Log("reached point");
-            if (npcScript.pathing == PathingMode.Random)
+            npcScript.agent.isStopped = true;
+            npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            npcScript.pathingBuffer += Time.deltaTime;
+            if (npcScript.pathingBuffer > 1f)
             {
-                FindNextRandPoint();
-            }
-            else if (npcScript.pathing == PathingMode.Order)
-            {
-                if (waypointCounter < waypoints.Length - 1)
+                npcScript.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                npcScript.agent.isStopped = false;
+                if (npcScript.pathing == PathingMode.Random)
                 {
-                    waypointCounter += 1;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    FindNextRandPoint();
                 }
-                else
+                else if (npcScript.pathing == PathingMode.Order)
                 {
-                    waypointCounter = 0;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    if (waypointCounter < waypoints.Length - 1)
+                    {
+                        waypointCounter += 1;
+                        npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    }
+                    else
+                    {
+                        waypointCounter = 0;
+                        npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    }
                 }
-
+                npcScript.pathingBuffer = 0;
             }
-
         }
     }
-
 
 
 
@@ -131,29 +138,28 @@ public class PatrolState : FSMState
     {
         NPCTankController npcScript = npc.GetComponent<NPCTankController>();
 
-
-        if (npcScript.findPointCounter == 0)
-        {
-            if (npcScript.pathing == PathingMode.Random)
+            if (npcScript.findPointCounter == 0)
             {
-                FindNextRandPoint();
-            }
-            else if (npcScript.pathing == PathingMode.Order)
-            {
-                if (waypointCounter < waypoints.Length - 1)
+                if (npcScript.pathing == PathingMode.Random)
                 {
-                    waypointCounter += 1;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    FindNextRandPoint();
                 }
-                else
+                else if (npcScript.pathing == PathingMode.Order)
                 {
-                    waypointCounter = 0;
-                    npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    if (waypointCounter < waypoints.Length - 1)
+                    {
+                        waypointCounter += 1;
+                        npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    }
+                    else
+                    {
+                        waypointCounter = 0;
+                        npcScript.agent.SetDestination(waypoints[waypointCounter].position);
+                    }
                 }
+                npcScript.findPointCounter++;
             }
-            npcScript.findPointCounter++;
-        }
-
+        
 
 
 

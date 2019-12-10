@@ -10,8 +10,10 @@ public class MoveToMouse : MonoBehaviour
 
     private NavMeshAgent agent;
     private Rigidbody rigidbody;
-    private Vector3 velocity;
+    public Vector3 velocity;
+    public Vector3 m_velocity;
     private PlayerScript playerScr;
+    private NPCTankController agentScript;
     public float moveSpeed;
 
     void Start()
@@ -24,6 +26,9 @@ public class MoveToMouse : MonoBehaviour
 
     void Update()
     {
+        m_velocity = agent.velocity.normalized;
+        velocity = agent.velocity;
+
         if (playerScr.canMove)
         {
             if (Input.GetMouseButtonDown(0))
@@ -32,10 +37,21 @@ public class MoveToMouse : MonoBehaviour
 
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
                 {
+                    agent.isStopped = false;
+                    rigidbody.constraints = RigidbodyConstraints.None;
                     agent.destination = hit.point;
                 }
             }
         }
+        if (velocity == new Vector3(0, 0, 0))
+        {
+            Debug.Log("Stopping Agent");
+            if(agentScript != null)
+                agentScript.agent.isStopped = true;
+                rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            
+        }
+       
         //Vector3 mousePos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.y));
         //transform.LookAt(mousePos + Vector3.up * transform.position.y);
         //velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * moveSpeed;
